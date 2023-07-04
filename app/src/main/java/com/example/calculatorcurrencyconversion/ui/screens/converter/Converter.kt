@@ -7,7 +7,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Converter(
-    navController: NavHostController,
     padding: PaddingValues,
     viewModel: ConverterViewModel = koinViewModel()
 ) {

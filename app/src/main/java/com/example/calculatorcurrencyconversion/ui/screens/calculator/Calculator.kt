@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,100 +32,92 @@ fun Calculator(
             .padding(padding)
             .padding(15.dp)
     ) {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
                 .align(Alignment.TopCenter)
         ) {
-            val listState = rememberLazyListState()
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(15.dp), state = listState){
-                items(state.history){ item ->
-                    Text(text = item)
-                }
-            }
             Text(
                 text = state.displayed,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.align(Alignment.End)
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier.align(Alignment.CenterEnd)
             )
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.6f)
+                .fillMaxHeight(0.7f)
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 CalculatorButton("AC", MaterialTheme.colorScheme.secondary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.ClearClicked)
                 }
                 CalculatorButton("Del", MaterialTheme.colorScheme.secondary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.DeleteClicked)
                 }
                 CalculatorButton("%", MaterialTheme.colorScheme.secondary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.OperatorClicked(Operator.Percent))
                 }
                 CalculatorButton("/", MaterialTheme.colorScheme.secondary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.OperatorClicked(Operator.Divide))
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 CalculatorButton("7") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("7"))
                 }
                 CalculatorButton("8") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("8"))
                 }
                 CalculatorButton("9") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("9"))
                 }
-                CalculatorButton("X", MaterialTheme.colorScheme.secondary) {
-
+                CalculatorButton("x", MaterialTheme.colorScheme.secondary) {
+                    viewModel.setEvent(CalculatorContract.Event.OperatorClicked(Operator.Multiply))
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 CalculatorButton("4") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("4"))
                 }
                 CalculatorButton("5") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("5"))
                 }
                 CalculatorButton("6") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("6"))
                 }
                 CalculatorButton("+", MaterialTheme.colorScheme.secondary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.OperatorClicked(Operator.Plus))
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 CalculatorButton("1") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("1"))
                 }
                 CalculatorButton("2") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("2"))
                 }
                 CalculatorButton("3") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("3"))
                 }
                 CalculatorButton("-", MaterialTheme.colorScheme.secondary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.OperatorClicked(Operator.Minus))
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                CalculatorButton("( )") {
 
-                }
-                CalculatorButton("0") {
-
+                CalculatorButton("0", isDoubleWidth = true) {
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("0"))
                 }
                 CalculatorButton(".") {
-
+                    viewModel.setEvent(CalculatorContract.Event.NumberClicked("."))
                 }
                 CalculatorButton("=", MaterialTheme.colorScheme.inversePrimary) {
-
+                    viewModel.setEvent(CalculatorContract.Event.EqualsClicked)
                 }
             }
         }
