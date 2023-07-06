@@ -27,7 +27,7 @@ fun Navigation() {
             }
 
             composable(NavItem.Converter) {
-                Converter(navController, padding)
+                Converter(padding)
             }
         }
     }

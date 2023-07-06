@@ -122,6 +122,9 @@ class CalculatorViewModel :
             }
 
             is CalculatorContract.Event.OperatorClicked -> {
+                if(currentState.result.isNotEmpty()){
+                    setState { copy(number1 = currentState.result) }
+                }
                 setState { copy(result = "") }
                 if (currentState.number1.isNotEmpty() && currentState.number2.isEmpty()) {
                     if (event.operator is Operator.Percent) {

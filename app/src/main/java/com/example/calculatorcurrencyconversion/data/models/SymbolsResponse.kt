@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SymbolsResponse(
-    val success: Boolean,
-    val symbols: Map<String, String>
+    val result: String,
+    val supported_codes: List<List<String>>
 )
