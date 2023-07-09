@@ -200,19 +200,21 @@ fun SelectCurrencyBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
-        windowInsets = WindowInsets(top = 50.dp)
     ) {
-        LazyColumn {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(
                 count = symbols.size,
                 key = { index -> symbols[index][0] }
             ) { index ->
                 ListItem(
+                    modifier = Modifier.fillMaxWidth(),
                     headlineContent = {
                         Text(
                             text = "${symbols[index][0]} : ${symbols[index][1]}",
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.clickable { onClick(symbols[index][0]) }
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth().clickable { onClick(symbols[index][0]) },
+                            maxLines = 1,
+                            softWrap = true
                         )
                     }
                 )

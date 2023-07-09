@@ -38,7 +38,7 @@ val repositoryModule = module {
             }
             install(ResponseObserver) {
                 onResponse { response ->
-                    Log.d("HTTP status:", "${response.status.value}")
+                    Log.d("HTTP status:", "${response.status.value} ${response.content.readUTF8Line(1000)}")
                 }
             }
         }

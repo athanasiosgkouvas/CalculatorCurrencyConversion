@@ -75,12 +75,16 @@ class ConverterViewModel: BaseViewModel<ConverterContract.Event, ConverterContra
 
             is ConverterContract.Event.OnBaseAmountChanged -> setState { copy(baseAmount = event.amount) }
             ConverterContract.Event.CalculateTargetAmount -> {
-                setState { copy(isLoading = true) }
-                convert(currentState.baseAmount, currentState.baseSymbol, currentState.targetSymbol)
+                if(currentState.baseAmount.isEmpty().not()){
+                    setState { copy(isLoading = true) }
+                    convert(currentState.baseAmount, currentState.baseSymbol, currentState.targetSymbol)
+                }
             }
             ConverterContract.Event.CalculateBaseAmount -> {
-                setState { copy(isLoading = true) }
-                convert(currentState.targetAmount, currentState.targetSymbol, currentState.baseSymbol)
+                if(currentState.targetAmount.isEmpty().not()){
+                    setState { copy(isLoading = true) }
+                    convert(currentState.targetAmount, currentState.targetSymbol, currentState.baseSymbol)
+                }
             }
             is ConverterContract.Event.OnTargetAmountChanged -> setState { copy(targetAmount = event.amount) }
         }
@@ -95,8 +99,8 @@ class ConverterViewModel: BaseViewModel<ConverterContract.Event, ConverterContra
                         copy(
                             currencies = response.supported_codes,
                             showError = false,
-                            baseSymbol = response.supported_codes.flatten().first { it == "EUR" },
-                            targetSymbol = response.supported_codes.flatten().first { it == "USD" }
+                            baseSymbol = response.supported_codes.flatten().firstOrNull { it == "EUR" }.orEmpty(),
+                            targetSymbol = response.supported_codes.flatten().firstOrNull() { it == "USD" }.orEmpty()
                         )
                     }
                 }else{

@@ -149,7 +149,11 @@ class CalculatorViewModel :
         operator: Operator?,
         result: String
     ) {
-        setState { copy(displayed = "$number1 ${operator?.symbol ?: ""} $number2 $result") }
+        if(number1.isEmpty() && number2.isEmpty() && operator == null && result.isEmpty()){
+            setState { copy(displayed = "") }
+        }else{
+            setState { copy(displayed = "$number1 ${operator?.symbol ?: ""} $number2 $result") }
+        }
     }
 
     private fun calculateResult(percent: Boolean = false) {
