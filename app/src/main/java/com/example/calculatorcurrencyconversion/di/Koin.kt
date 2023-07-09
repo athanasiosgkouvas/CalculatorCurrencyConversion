@@ -15,7 +15,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel{ CalculatorViewModel() }
-    viewModel{ ConverterViewModel() }
+    viewModel{ ConverterViewModel(get()) }
 }
 
 val repositoryModule = module {

@@ -14,10 +14,12 @@ class CoroutineTestRule @ExperimentalCoroutinesApi constructor(
     private val testDispatcher: TestDispatcher = StandardTestDispatcher(),
     val testScope: TestScope = TestScope(testDispatcher)
 ) : TestWatcher(){
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun starting(description: Description) {
         Dispatchers.setMain(testDispatcher)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun finished(description: Description) {
         Dispatchers.resetMain()
     }

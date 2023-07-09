@@ -95,8 +95,7 @@ class CalculatorViewModel :
             is CalculatorContract.Event.NumberClicked -> {
                 setState { copy(result = "") }
                 if (currentState.operator == null) {
-                    if (event.number != "." || (currentState.number1.contains(".")
-                            .not() && currentState.number1.isNotEmpty())
+                    if (event.number != "." || (currentState.number1.contains(".").not() && currentState.number1.isNotEmpty())
                     ) {
                         updateDisplayed(
                             currentState.number1 + event.number,
@@ -152,7 +151,7 @@ class CalculatorViewModel :
         if(number1.isEmpty() && number2.isEmpty() && operator == null && result.isEmpty()){
             setState { copy(displayed = "") }
         }else{
-            setState { copy(displayed = "$number1 ${operator?.symbol ?: ""} $number2 $result") }
+            setState { copy(displayed = "$number1 ${operator?.symbol ?: ""} $number2 $result".trim()) }
         }
     }
 
@@ -194,10 +193,6 @@ class CalculatorViewModel :
                 }
 
                 else -> {}// do nothing
-            }
-
-            if (percent) {
-                result /= 100.0
             }
 
             setState {

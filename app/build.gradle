@@ -74,6 +74,7 @@ dependencies {
     implementation "io.insert-koin:koin-androidx-compose:3.4.4"
     implementation 'io.ktor:ktor-client-android:1.5.0'
     implementation 'io.ktor:ktor-client-serialization:1.5.0'
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.8.0'
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"

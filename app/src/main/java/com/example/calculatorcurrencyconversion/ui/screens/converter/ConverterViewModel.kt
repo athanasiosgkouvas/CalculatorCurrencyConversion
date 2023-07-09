@@ -8,7 +8,6 @@ import com.example.calculatorcurrencyconversion.ui.base.UiEvent
 import com.example.calculatorcurrencyconversion.ui.base.UiState
 import com.example.calculatorcurrencyconversion.util.isSuccess
 import kotlinx.coroutines.launch
-import org.koin.core.component.inject
 
 interface ConverterContract{
     sealed interface Event: UiEvent{
@@ -42,9 +41,7 @@ interface ConverterContract{
     }
 }
 
-class ConverterViewModel: BaseViewModel<ConverterContract.Event, ConverterContract.State, ConverterContract.Effect>(){
-
-    private val repository: Repository by inject()
+class ConverterViewModel(private val repository: Repository): BaseViewModel<ConverterContract.Event, ConverterContract.State, ConverterContract.Effect>(){
 
     init {
         setEvent(ConverterContract.Event.Init)
@@ -72,8 +69,12 @@ class ConverterViewModel: BaseViewModel<ConverterContract.Event, ConverterContra
                 setState { copy(targetSymbol = event.symbol) }
                 setEffect { ConverterContract.Effect.HideTargetBottomSheet }
             }
-
-            is ConverterContract.Event.OnBaseAmountChanged -> setState { copy(baseAmount = event.amount) }
+            is ConverterContract.Event.OnBaseAmountChanged -> {
+                setState { copy(baseAmount = event.amount) }
+            }
+            is ConverterContract.Event.OnTargetAmountChanged -> {
+                setState { copy(targetAmount = event.amount) }
+            }
             ConverterContract.Event.CalculateTargetAmount -> {
                 if(currentState.baseAmount.isEmpty().not()){
                     setState { copy(isLoading = true) }
@@ -86,7 +87,6 @@ class ConverterViewModel: BaseViewModel<ConverterContract.Event, ConverterContra
                     convert(currentState.targetAmount, currentState.targetSymbol, currentState.baseSymbol)
                 }
             }
-            is ConverterContract.Event.OnTargetAmountChanged -> setState { copy(targetAmount = event.amount) }
         }
     }
 
