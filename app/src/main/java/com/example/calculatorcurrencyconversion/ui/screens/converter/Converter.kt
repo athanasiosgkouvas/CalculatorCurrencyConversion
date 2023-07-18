@@ -128,7 +128,7 @@ fun Converter(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Button(onClick = { viewModel.setEvent(ConverterContract.Event.OnBaseSymbolClicked) }) {
+                        Button(onClick = { viewModel.setEvent(ConverterContract.Event.OnTargetSymbolClicked) }) {
                             Text(text = "Change")
                         }
                         Spacer(modifier = Modifier.weight(1f))
@@ -158,11 +158,18 @@ fun Converter(
                     }
                 }
             } else {
-                Text(
-                    text = stringResource(id = R.string.genericError), modifier = Modifier.align(
-                        Alignment.Center
+                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = stringResource(id = R.string.genericError), modifier = Modifier.align(
+                            Alignment.CenterHorizontally
+                        )
                     )
-                )
+
+                    Button(onClick ={ viewModel.setEvent(ConverterContract.Event.Init)}) {
+                        Text(text = stringResource(id = R.string.refresh))
+                    }
+                }
+
             }
         }
     }
@@ -209,7 +216,9 @@ fun SelectCurrencyBottomSheet(
                         Text(
                             text = "${symbols[index][0]} : ${symbols[index][1]}",
                             textAlign = TextAlign.Start,
-                            modifier = Modifier.fillMaxWidth().clickable { onClick(symbols[index][0]) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { onClick(symbols[index][0]) },
                             maxLines = 1,
                             softWrap = true
                         )

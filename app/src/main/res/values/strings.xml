@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CalculatorCurrencyConversion</string>
     <string name="genericError">Something went Wrong</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.calculatorcurrencyconversion.ui.components.CalculatorButton
@@ -41,7 +42,9 @@ fun Calculator(
             Text(
                 text = state.displayed,
                 style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier.align(Alignment.CenterEnd),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Column(
